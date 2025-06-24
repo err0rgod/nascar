@@ -14,5 +14,6 @@ if result:
 else:
     print("No devices found in the network.")
 
-    
+
+
 
