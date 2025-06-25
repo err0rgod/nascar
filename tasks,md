@@ -1,0 +1,20 @@
+1. Display Results in a Table
+Use the tabulate or prettytable library to show results in a clean table format.
+2. Save Results to a File
+Write the scan results to a CSV or text file for later analysis.
+3. Add OS Detection (Advanced)
+Use TTL values or other techniques to guess the operating system of discovered devices.
+4. Port Scanning
+For each active IP, scan for open ports (e.g., using socket).
+5. Progress Bar
+Show a progress bar (with tqdm) to indicate scan progress.
+6. Command-Line Arguments
+Use argparse to accept network, thread count, and output file as command-line options.
+7. Error Handling & Logging
+Add better error handling and optionally log errors to a file.
+8. Scan Specific Range
+Allow the user to specify a custom IP range (not just CIDR).
+9. Graphical User Interface (GUI)
+Build a simple GUI using tkinter or PyQt.
+10. Scan for Vendor Information
+Use the MAC address to look up the device vendor (using an OUI database).
