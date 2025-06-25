@@ -30,6 +30,8 @@ if args.verbose:
 
 net = ipaddress.ip_network(network, strict=False)
 ip_queue = Queue()
+results = []  # List to store info about alive hosts
+results_lock = threading.Lock()  # To prevent race conditions
 
 def worker():
     while not ip_queue.empty():
@@ -43,7 +45,14 @@ def worker():
                 hostname = socket.gethostbyaddr(result[0][1].psrc)[0]
             except Exception:
                 hostname = "Unknown"
-            print(f"IP: {result[0][1].psrc}, MAC: {result[0][1].hwsrc}, Hostname: {hostname}")
+            info = {
+                "ip": result[0][1].psrc,
+                "mac": result[0][1].hwsrc,
+                "hostname": hostname
+            }
+            with results_lock:
+                results.append(info)
+            print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}")
         else:
             print(f"No response {ip}")
         ip_queue.task_done()
@@ -61,9 +70,14 @@ for _ in range(threads_count):
 
 # Wait for the queue to be empty
 ip_queue.join()
-
-# Optionally, join the threads if you want to wait for them to finish
 for t in threads:
     t.join()
+
+# Show all alive hosts at the end
+print("\nScan complete. Alive hosts:")
+print("{:<16} {:<18} {}".format("IP Address", "MAC Address", "Hostname"))
+print("-" * 50)
+for info in results:
+    print("{:<16} {:<18} {}".format(info['ip'], info['mac'], info['hostname']))
 
 
