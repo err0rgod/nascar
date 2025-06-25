@@ -1,5 +1,6 @@
 import scapy.all as scapy
 import ipaddress
+import socket
 
 network = input("Enter the network in cidr format: ")
 
@@ -12,6 +13,11 @@ for ip in net.hosts():
     packet = broadcast / arp
     result = scapy.srp(packet, timeout=1, verbose=False)[0]
     if result:
+        try:
+            hostname = socket.gethostbyaddr(result[0][1].psrc)[0]
+        except Exception:
+            hostname = "Unknown"
+        print(f"IP: {result[0][1].psrc}, MAC: {result[0][1].hwsrc}, Hostname: {hostname}")
         print(f"IP: {result[0][1].psrc}, MAC: {result[0][1].hwsrc}")
     else:
         print(f"No response {ip}")
