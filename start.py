@@ -18,7 +18,6 @@ for ip in net.hosts():
         except Exception:
             hostname = "Unknown"
         print(f"IP: {result[0][1].psrc}, MAC: {result[0][1].hwsrc}, Hostname: {hostname}")
-        print(f"IP: {result[0][1].psrc}, MAC: {result[0][1].hwsrc}")
     else:
         print(f"No response {ip}")
 
