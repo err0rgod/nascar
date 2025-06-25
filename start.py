@@ -1,6 +1,6 @@
 import scapy.all as scapy
 
-ip = "192.168.1.1"
+ip = "192.168.75.1"
 
 arp = scapy.ARP(pdst=ip)
 broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
