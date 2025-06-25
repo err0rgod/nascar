@@ -2,9 +2,31 @@ import scapy.all as scapy
 import ipaddress
 import socket
 import threading
+import argparse
 from queue import Queue
 
-network = input("Enter the network in cidr format: ")
+
+
+parser = argparse.ArgumentParser(description="Network Scanner")
+parser.add_argument("-i","--ip", type=str, help="ip address to scan (e.g., 192.168.1.1)")
+parser.add_argument("-n", "--network", type=str, help="Network in CIDR format (e.g., 192.168.1.0/24)")
+parser.add_argument("-t", "--threads", type=int, default=10, help="Number of threads to use")
+parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+parser.add_argument("-s", "--silent", action="store_true", help="Run in silent mode")
+args = parser.parse_args()
+
+network = args.network
+if not network:
+    if args.ip:
+        # If an IP is provided, derive the network from it
+        ip = ipaddress.ip_address(args.ip)
+        network = f"{ip}/24"  # Default to /24 if no network is specified
+    else:
+        raise ValueError("Please provide a network in CIDR format or an IP address.")
+    
+threads_count = args.threads
+if args.verbose:
+    print(f"Scanning network: {network} with {threads_count} threads")
 
 net = ipaddress.ip_network(network, strict=False)
 ip_queue = Queue()
@@ -32,7 +54,7 @@ for ip in net.hosts():
 
 # Start threads
 threads = []
-for _ in range(20):  # You can adjust the number of threads
+for _ in range(threads_count):
     t = threading.Thread(target=worker)
     t.start()
     threads.append(t)
