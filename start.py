@@ -1,6 +1,8 @@
 import scapy.all as scapy
 import ipaddress
 import socket
+import threading
+from queue import Queue
 
 network = input("Enter the network in cidr format: ")
 
