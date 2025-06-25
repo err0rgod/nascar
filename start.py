@@ -1,5 +1,12 @@
 import scapy.all as scapy
+import ipaddress
 
+network = input("Enter the network in cidr format: ")
+
+
+net = ipaddress.ip_network(network, strict=False)
+for ip in net.hosts():
+    print(ip)
 
 
 ip = "192.168.75.1"
