@@ -34,7 +34,7 @@ results = []  # List to store info about alive hosts
 results_lock = threading.Lock()  # To prevent race conditions
 
 def worker():
-    while not ip_queue.empty():
+    while not ip_queue.empty(): 
         ip = ip_queue.get()
         arp = scapy.ARP(pdst=str(ip))
         broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
