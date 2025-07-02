@@ -93,10 +93,10 @@ def worker():
             # Use ICMP for WAN
             alive, ttl = is_host_alive_icmp(ip_str)
             os_name = guess_os(ttl) if alive else "Unknown"
-                try:
-                    hostname = socket.gethostbyaddr(ip_str)[0]
-                except Exception:
-                    pass
+            try:
+                hostname = socket.gethostbyaddr(ip_str)[0]
+            except Exception:
+                pass
 
         if alive:
             info = {
