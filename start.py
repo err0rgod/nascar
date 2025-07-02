@@ -37,7 +37,7 @@ def is_host_alive_icmp(ip):
         else:
             return False, None
     except Exception:
-        return False
+        return False, None
     
 
 
