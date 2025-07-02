@@ -102,14 +102,15 @@ def worker():
             info = {
                 "ip": ip_str,
                 "mac": mac,
-                "hostname": hostname
+                "hostname": hostname,
+                
             }
             if args.lateral:
                 info["open_ports"] = port_scan(ip_str, COMMON_PORTS)
             with results_lock:
                 results.append(info)
             if not args.silent:
-                print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}" +
+                print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}, OS: {info['os']}" +
                       (f", Open Ports: {info['open_ports']}" if args.lateral else ""))
         elif args.verbose:
             print(f"No response {ip_str}")
@@ -133,17 +134,17 @@ for t in threads:
 # Show all alive hosts at the end
 print("\nScan complete. Alive hosts:")
 if args.lateral:
-    print("{:<16} {:<18} {:<20} {}".format("IP Address", "MAC Address", "Hostname", "Open Ports"))
-    print("-" * 70)
+    print("{:<16} {:<18} {:<20} {:<12} {}".format("IP Address", "MAC Address", "Hostname", "OS", "Open Ports"))
+    print("-" * 85)
     for info in results:
-        print("{:<16} {:<18} {:<20} {}".format(
-            info['ip'], info['mac'], info['hostname'],
+        print("{:<16} {:<18} {:<20} {:<12} {}".format(
+            info['ip'], info['mac'], info['hostname'], info['os'],
             ",".join(str(p) for p in info.get('open_ports', []))
         ))
 else:
-    print("{:<16} {:<18} {}".format("IP Address", "MAC Address", "Hostname"))
-    print("-" * 50)
+    print("{:<16} {:<18} {:<20} {:<12}".format("IP Address", "MAC Address", "Hostname", "OS"))
+    print("-" * 70)
     for info in results:
-        print("{:<16} {:<18} {}".format(info['ip'], info['mac'], info['hostname']))
+        print("{:<16} {:<18} {:<20} {:<12}".format(info['ip'], info['mac'], info['hostname'], info['os']))
 
 
