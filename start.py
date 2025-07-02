@@ -102,7 +102,7 @@ def worker():
             info = {
                 "ip": ip_str,
                 "mac": mac,
-                "hostname": hostname,
+                "hostname": hostname
                 
             }
             if args.lateral:
@@ -110,7 +110,7 @@ def worker():
             with results_lock:
                 results.append(info)
             if not args.silent:
-                print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}, OS: {info['os']}" +
+                print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}" +
                       (f", Open Ports: {info['open_ports']}" if args.lateral else ""))
         elif args.verbose:
             print(f"No response {ip_str}")
