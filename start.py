@@ -5,7 +5,7 @@ import threading
 import argparse
 from queue import Queue
 ffff
-ffff
+fffff
 
 parser = argparse.ArgumentParser(description="Network Scanner")
 parser.add_argument("-i","--ip", type=str, help="ip address to scan (e.g., 192.168.1.1)")
