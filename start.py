@@ -32,7 +32,7 @@ def is_host_alive_icmp(ip):
     try:
         icmp = scapy.IP(dst=str(ip))/scapy.ICMP()
         resp = scapy.sr1(icmp, timeout=1, verbose=0)
-        if resp is not none:
+        if resp is not None:
             return True, int(resp.ttl)
         else:
             return False, None
