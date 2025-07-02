@@ -6,7 +6,7 @@ import argparse
 from queue import Queue
 ffffdddfdgggg
 fffff
-
+g
 parser = argparse.ArgumentParser(description="Network Scanner")
 parser.add_argument("-i","--ip", type=str, help="ip address to scan (e.g., 192.168.1.1)")
 parser.add_argument("-n", "--network", type=str, help="Network in CIDR format (e.g., 192.168.1.0/24)")
