@@ -66,8 +66,6 @@ def port_scan(ip, ports):
     return open_ports
 
 def worker():
-    alive, ttl = is_host_alive_icmp(ip_str)
-    os_name = guess_os(ttl) if alive else "Unknown"
     while not ip_queue.empty():
         ip = ip_queue.get()
         ip_str = str(ip)
@@ -93,8 +91,8 @@ def worker():
                     pass
         else:
             # Use ICMP for WAN
-            if is_host_alive_icmp(ip_str):
-                alive = True
+            alive, ttl = is_host_alive_icmp(ip_str)
+            os_name = guess_os(ttl) if alive else "Unknown"
                 try:
                     hostname = socket.gethostbyaddr(ip_str)[0]
                 except Exception:
