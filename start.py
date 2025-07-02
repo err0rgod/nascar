@@ -4,7 +4,7 @@ import socket
 import threading
 import argparse
 from queue import Queue
-ffffdddfdg
+ffffdddfdgggg
 fffff
 
 parser = argparse.ArgumentParser(description="Network Scanner")
