@@ -38,6 +38,18 @@ def is_host_alive_icmp(ip):
             return False, None
     except Exception:
         return False
+    
+
+
+def guess_os(ttl):
+    if ttl is None;
+        return "Unknown"
+    elif ttl >= 120:
+        return "Windows"
+    elif ttl >= 60:
+        return "Linux/Unix"
+    else:
+        return "Ye kya hai"
 
 def port_scan(ip, ports):
     open_ports = []
