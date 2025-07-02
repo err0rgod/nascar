@@ -13,6 +13,7 @@ parser.add_argument("-s", "--silent", action="store_true", help="Run in silent m
 parser.add_argument("-lm", "--lateral", action="store_true", help="Enable lateral movement (port scan on alive hosts)")
 args = parser.parse_args()
 
+
 network = args.network
 threads_count = args.threads
 
