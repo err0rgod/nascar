@@ -42,7 +42,7 @@ def is_host_alive_icmp(ip):
 
 
 def guess_os(ttl):
-    if ttl is None;
+    if ttl is None:
         return "Unknown"
     elif ttl >= 120:
         return "Windows"
@@ -66,6 +66,8 @@ def port_scan(ip, ports):
     return open_ports
 
 def worker():
+    alive, ttl = is_host_alive_icmp(ip_str)
+    os_name = guess_os(ttl) if alive else "Unknown"
     while not ip_queue.empty():
         ip = ip_queue.get()
         ip_str = str(ip)
