@@ -72,6 +72,7 @@ def worker():
         mac = "N/A"
         hostname = "Unknown"
         alive = False
+        os_name = "Unknown"
 
         # Check if IP is in local subnet
         is_local = ipaddress.ip_address(ip) in net and net.prefixlen >= 24 and ipaddress.ip_network(net).is_private
@@ -89,6 +90,9 @@ def worker():
                     hostname = socket.gethostbyaddr(result[0][1].psrc)[0]
                 except Exception:
                     pass
+                # Optionally, you can try to guess OS for LAN hosts using ICMP
+                _, ttl = is_host_alive_icmp(ip_str)
+                os_name = guess_os(ttl)
         else:
             # Use ICMP for WAN
             alive, ttl = is_host_alive_icmp(ip_str)
@@ -102,16 +106,13 @@ def worker():
             info = {
                 "ip": ip_str,
                 "mac": mac,
-                "hostname": hostname
-                
+                "hostname": hostname,
+                "os": os_name
             }
             if args.lateral:
                 info["open_ports"] = port_scan(ip_str, COMMON_PORTS)
             with results_lock:
                 results.append(info)
-            if not args.silent:
-                print(f"IP: {info['ip']}, MAC: {info['mac']}, Hostname: {info['hostname']}" +
-                      (f", Open Ports: {info['open_ports']}" if args.lateral else ""))
         elif args.verbose:
             print(f"No response {ip_str}")
         ip_queue.task_done()

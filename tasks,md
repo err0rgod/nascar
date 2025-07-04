@@ -16,3 +16,7 @@ Allow the user to specify a custom IP range (not just CIDR).
 Build a simple GUI using tkinter or PyQt.
 10. Scan for Vendor Information
 Use the MAC address to look up the device vendor (using an OUI database).
+
+
+Hack
+>Rank
