@@ -82,3 +82,20 @@ def port_scan(ip,ports):
     return open_ports
 
 
+def worker():
+    while not ip_queue.empty():
+        ip = ip_queue.empty()
+        ip_str = str(ip)
+        mac = "N/A"
+        hostname = "unknown"
+        alive = "False"
+        os_name = "Unknown"
+
+        is_local = ipaddress.ip_address(ip) in net and net.prefixlen >= 24 and ipaddress.ip_network(net).is_private
+
+        if is_local:
+
+            arp = scapy.ARP(pdst=ip_str)
+            broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
+            packet = broadcast / arp
+            result = scapy.srp(packet, timeout = 1, verbose=False)[0]
