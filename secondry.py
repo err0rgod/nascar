@@ -138,3 +138,9 @@ for ip in net.hosts():
 
 threads = []
 for _ in range(threads_count):
+    t = threading.Thread(target=worker)
+    t.start()
+    threads.append(t)
+
+
+ip
