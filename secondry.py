@@ -143,4 +143,8 @@ for _ in range(threads_count):
     threads.append(t)
 
 
-ip
+ip_queue.join()
+for t in threads:
+    t.join()
+
+
