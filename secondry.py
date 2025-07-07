@@ -148,3 +148,17 @@ for t in threads:
     t.join()
 
 
+print("\nScan Completed. Alive Hosts: ")
+if args.lateral:
+    print("{:<16} {:<18} {:<20} {:<12} {}".format("IP Address", "MAC Address", "Hostname", "OS", "Open Ports"))
+    print("_" * 85)
+    for info in results:
+        print("{:<16} {:<18} {:<20} {:<12} {}".format(
+            info['ip'], info['mac'], info['hostname'], info['os'],
+            ",".join(str(p) for p in info.get('open_ports', []))
+        ))
+else:
+    print("{:<16} {:<18} {:<20} {:<12}".format("IP Address", "MAC Address", "Hostname", "OS"))
+    print("-" * 70)
+    for info in results:
+        print("{:<16} {:<18} {:<20} {:<12}".format(info['ip'], info['mac'], info['hostname'], info['os']))
