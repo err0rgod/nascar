@@ -52,3 +52,14 @@ def is_host_alive(ip):
 
 
 
+def os_guess(ttl):
+    if ttl is None:
+        return "Unknown"
+    elif ttl >=120:
+        return "Windows"
+    elif ttl >=60:
+        return "Linux/Unix"
+    else:
+        return "Ye kya Hai"
+    
+
