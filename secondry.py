@@ -25,3 +25,6 @@ threads_count = args.threads
 
 if args.verbose:
     print(f"scanning network : {network} with  {threads_count} threads")
+
+net = ipaddress.ip_address(network, strict= False)
+ip_queue = Queue()
