@@ -115,4 +115,20 @@ def worker():
             alive, ttl = is_host_alive(ip_str)
             os_name = guess_os(ttl) if alive else "unknown"
             try:
-                hostname = 
+                hostname = socket.gethostbyaddr(ip_str)[0]
+            except Exception:
+                pass
+
+        if alive:
+            info = {"ip":ip_str,"mac":mac,"hostname":hostname,"os":os_name}
+            if args.lateral:
+                info["open_ports"] = port_scan(ip_str, Common_ports)
+            with results_lock:
+                results.append(info)
+
+        elif args.verbose:
+            print(f"No response {ip_str}")
+
+        ip_queue.task_done()
+
+
