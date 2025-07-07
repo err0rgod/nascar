@@ -18,3 +18,8 @@ parser.add_argument("-s","--silent", action="store_true", help="for stealthy loo
 parser.add_argument("-lm", "--lateral", action="store_true", help="to enable lateral movement for ports")
 
 #adding args def
+
+network = args.network
+threads_count = args.threads
+
+
