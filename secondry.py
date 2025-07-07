@@ -132,3 +132,9 @@ def worker():
         ip_queue.task_done()
 
 
+for ip in net.hosts():
+    ip_queue.put(ip)
+
+
+threads = []
+for _ in range(threads_count):
