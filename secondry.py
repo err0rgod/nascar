@@ -73,4 +73,12 @@ def port_scan(ip,ports):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.settimeout(0.5)
             results = s.connect_ex((str(ip), port))
-            
+            if results == 0:
+                open_ports.append(port)
+            s.close()
+
+        except Exception:
+            pass
+    return open_ports
+
+
