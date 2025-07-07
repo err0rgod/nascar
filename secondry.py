@@ -99,3 +99,20 @@ def worker():
             broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
             packet = broadcast / arp
             result = scapy.srp(packet, timeout = 1, verbose=False)[0]
+            if result:
+                alive = True
+                mac = result[0][1].hwsrc
+                try:
+                    hostname = socket.gethostbyaddr(result[0][1].psrc)[0]
+
+                except Exception:
+                    pass
+
+                _, ttl = is_host_alive(ip_str)
+                os_name = guess_os(ttl)
+
+        else:
+            alive, ttl = is_host_alive(ip_str)
+            os_name = guess_os(ttl) if alive else "unknown"
+            try:
+                hostname = 
