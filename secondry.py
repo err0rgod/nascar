@@ -23,3 +23,5 @@ network = args.network
 threads_count = args.threads
 
 
+if args.verbose:
+    print(f"scanning network : {network} with  {threads_count} threads")
