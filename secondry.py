@@ -64,3 +64,7 @@ def os_guess(ttl):
         return "Ye kya Hai"
     
 
+#check for the ports 
+
+def port_scan(ip,ports):
+    
