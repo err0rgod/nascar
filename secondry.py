@@ -33,3 +33,11 @@ results = []
 
 results_lock = threading.Lock()
 
+#ports to scan
+
+Common_ports = [22,80,443,3389,445,139,21,23,25,53]
+
+
+def is_host_alive(ip):
+    try:
+        icmp = scapy.IP(dst=str(ip))/scapy.ICMP()
