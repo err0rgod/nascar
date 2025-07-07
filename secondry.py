@@ -41,3 +41,14 @@ Common_ports = [22,80,443,3389,445,139,21,23,25,53]
 def is_host_alive(ip):
     try:
         icmp = scapy.IP(dst=str(ip))/scapy.ICMP()
+        resp = scapy.sr1(icmp, timeout=1, verbose=0)
+        if resp is not None:
+            return True, int(resp.ttl)
+        else:
+            return False, None
+    except Exception:
+        return False, None
+    
+
+
+
