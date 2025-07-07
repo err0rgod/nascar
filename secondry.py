@@ -16,3 +16,5 @@ parser.add_argument("-t","--threads", type=int, default=20, help="to set the thr
 parser.add_argument("-v", "--verbose", action="store_true", help="enable verbosity") # help wale se padh na
 parser.add_argument("-s","--silent", action="store_true", help="for stealthy look")
 parser.add_argument("-lm", "--lateral", action="store_true", help="to enable lateral movement for ports")
+
+#adding args def
