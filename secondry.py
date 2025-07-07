@@ -50,6 +50,7 @@ def is_host_alive(ip):
         return False, None
     
 
+#guess os by the ttl value from Ping request samjhe
 
 
 def os_guess(ttl):
