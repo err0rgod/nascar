@@ -28,3 +28,8 @@ if args.verbose:
 
 net = ipaddress.ip_address(network, strict= False)
 ip_queue = Queue()
+
+results = []
+
+results_lock = threading.Lock()
+
