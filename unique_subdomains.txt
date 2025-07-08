@@ -1,0 +1,9 @@
+isrm.myoppo.com
+myoppo.com
+brandhub.myoppo.com
+hd.myoppo.com
+myoppo.com
+os-rmstest.myoppo.com
+rmsdev.myoppo.com
+rmspre.myoppo.com
+rmstest.myoppo.com
