@@ -18,5 +18,17 @@ Build a simple GUI using tkinter or PyQt.
 Use the MAC address to look up the device vendor (using an OUI database).
 
 
+add proxies
+
+use a web ui and full file about a report in nascar
+
+
+Protocol-Specific Checks
+HTTP/HTTPS: Check for open directories (/admin, /phpmyadmin)
+
+SSH: Test for weak credentials (Caution: Ethical/Legal issues!)
+
+FTP: Check for anonymous login
+
 Hack
 >Rank
