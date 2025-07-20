@@ -4,9 +4,10 @@ import socket
 import threading
 import argparse
 from queue import Queue
+import re
 
 parser = argparse.ArgumentParser(description="WAN/LAN Network Scanner")
-parser.add_argument("-n", "--network", type=str, required=True, help="Network in CIDR format (e.g., 192.168.1.0/24 or 185.199.110.0/24)")
+parser.add_argument("-n", "--network", type=str, required=True, help="Enter the target Domain or IP or CIDR")
 parser.add_argument("-t", "--threads", type=int, default=10, help="Number of threads to use")
 parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
 parser.add_argument("-s", "--silent", action="store_true", help="Run in silent mode")
@@ -20,10 +21,13 @@ threads_count = args.threads
 if args.verbose:
     print(f"Scanning network: {network} with {threads_count} threads")
 
-net = ipaddress.ip_network(network, strict=False)
+'''target = ipaddress.ip_network(network, strict=False)'''
 ip_queue = Queue()
 results = []
 results_lock = threading.Lock()
+
+
+
 
 # Define ports to scan for lateral movement
 COMMON_PORTS = [22, 80, 443, 3389, 445, 139, 21, 23, 25, 53]
@@ -77,7 +81,7 @@ def worker():
         os_name = "Unknown"
 
         # Check if IP is in local subnet
-        is_local = ipaddress.ip_address(ip) in net and net.prefixlen >= 24 and ipaddress.ip_network(net).is_private
+        is_local = ipaddress.ip_address(ip).is_private
 
         if is_local:
             # Use ARP for LAN
@@ -119,8 +123,35 @@ def worker():
             print(f"No response {ip_str}")
         ip_queue.task_done()
 
-# Fill the queue with all IPs
-for ip in net.hosts():
+
+
+
+#for converting domains to  ip
+
+
+def resolve_targets(target):
+    # Try to parse as IP or CIDR
+    try:
+        net = ipaddress.ip_network(target, strict=False)
+        return list(net.hosts())
+    except ValueError:
+        # Not an IP or CIDR, try as domain
+        try:
+            # Get all IPs for the domain (A records)
+            _, _, ip_list = socket.gethostbyname_ex(target)
+            return [ipaddress.ip_address(ip) for ip in ip_list]
+        except Exception as e:
+            print(f"Could not resolve domain '{target}': {e}")
+            return []
+
+# Replace this:
+# net = ipaddress.ip_network(network, strict=False)
+# for ip in net.hosts():
+#     ip_queue.put(ip)
+
+# With this:
+targets = resolve_targets(network)
+for ip in targets:
     ip_queue.put(ip)
 
 # Start threads
