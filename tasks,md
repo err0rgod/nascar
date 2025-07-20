@@ -16,6 +16,28 @@ Use the MAC address to look up the device vendor (using an OUI database).
 
 add a port scanner
 
+Input Handling:
+Nmap accepts IPs, CIDR, and domains (like your improved script).
+
+Host Discovery:
+Nmap uses multiple techniques: ARP, ICMP, TCP SYN, TCP ACK, UDP, etc.
+Your script uses ARP for LAN and ICMP for WAN.
+
+Port Scanning:
+Nmap supports many scan types (SYN, FIN, NULL, XMAS, UDP, etc.), service detection, and banner grabbing.
+Your script does a basic TCP connect scan.
+
+OS Detection:
+Nmap uses advanced fingerprinting (TCP/IP stack quirks, multiple probes, etc.) for accurate OS detection.
+Your script uses only TTL (which is a very rough guess).
+
+Service & Version Detection:
+Nmap can detect running services and their versions.
+Your script does not (unless you add banner grabbing).
+
+Scriptable Engine:
+Nmap has NSE (Nmap Scripting Engine) for advanced checks.
+Your script is not scriptable in this way.
 
 add proxies
 

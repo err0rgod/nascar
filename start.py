@@ -28,6 +28,8 @@ results_lock = threading.Lock()
 # Define ports to scan for lateral movement
 COMMON_PORTS = [22, 80, 443, 3389, 445, 139, 21, 23, 25, 53]
 
+
+
 def is_host_alive_icmp(ip):
     try:
         icmp = scapy.IP(dst=str(ip))/scapy.ICMP()
