@@ -1,12 +1,9 @@
-1. Display Results in a Table
-Use the tabulate or prettytable library to show results in a clean table format.
+
 2. Save Results to a File
 Write the scan results to a CSV or text file for later analysis.
 3. Add OS Detection (Advanced)
 Use TTL values or other techniques to guess the operating system of discovered devices.
 
-5. Progress Bar
-Show a progress bar (with tqdm) to indicate scan progress.
 
 7. Error Handling & Logging
 Add better error handling and optionally log errors to a file.
@@ -16,6 +13,8 @@ Allow the user to specify a custom IP range (not just CIDR).
 Build a simple GUI using tkinter or PyQt.
 10. Scan for Vendor Information
 Use the MAC address to look up the device vendor (using an OUI database).
+
+add a port scanner
 
 
 add proxies
