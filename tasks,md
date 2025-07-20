@@ -51,5 +51,101 @@ SSH: Test for weak credentials (Caution: Ethical/Legal issues!)
 
 FTP: Check for anonymous login
 
-Hack
->Rank
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+📅 5-Day Development Plan
+Goal: Build a modular, extensible scanner in Python (can switch to Go/Rust later if needed).
+
+Day 1: Basic Network Discovery
+✅ Features:
+
+Ping Sweep (ICMP) – Find live hosts.
+
+ARP Scan (Local LAN detection).
+
+Subnet Calculator (Auto-detect or manual input).
+🔹 Stretch Goal: Multithreading for faster scans.
+
+Day 2: Port Scanning & Service Detection
+✅ Features:
+
+TCP SYN Scan (Stealthy, fast).
+
+TCP Connect Scan (Reliable but noisy).
+
+UDP Scan (Basic).
+
+Banner Grabbing (HTTP, FTP, SSH).
+🔹 Stretch Goal: Service version detection.
+
+Day 3: OS Detection & Advanced Fingerprinting
+✅ Features:
+
+TCP/IP Stack Fingerprinting (Like Nmap -O).
+
+TTL & Window Size Analysis.
+
+SMB/HTTP OS Leak Checks.
+🔹 Stretch Goal: Machine Learning-based OS guess.
+
+Day 4: Output & User Experience
+✅ Features:
+
+JSON/CSV/TXT Export.
+
+Colorful CLI Output (Like termcolor).
+
+Scan Profiles (Quick, Stealth, Aggressive).
+🔹 Stretch Goal: HTML report generation.
+
+Day 5: Optimization & Extra Features
+✅ Features:
+
+Multithreading/Multiprocessing.
+
+IP Geolocation (API-based, like ipinfo.io).
+
+Vulnerability Check (Basic CVE lookup).
+🔹 Stretch Goal: DNS Enumeration.
+
+🛠 Tech Stack Suggestions
+Language: Python (fast prototyping) → Later Go/Rust for speed.
+
+Libraries:
+
+scapy (custom packets, ARP, SYN scans).
+
+socket (basic TCP/UDP checks).
+
+python-nmap (Nmap integration).
+
+requests (banner grabbing).
+
+concurrent.futures (multithreading).
+
+🔥 Bonus Ideas (If Time Permits)
+Wi-Fi Scanner (Monitor mode, nearby APs).
+
+Packet Sniffer (Live traffic analysis).
+
+GUI (Tkinter/Web-based).
+
+API Mode (Run scans via HTTP requests).

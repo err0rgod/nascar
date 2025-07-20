@@ -34,6 +34,10 @@ COMMON_PORTS = [22, 80, 443, 3389, 445, 139, 21, 23, 25, 53]
 
 
 
+
+
+
+
 def is_host_alive_icmp(ip):
     try:
         icmp = scapy.IP(dst=str(ip))/scapy.ICMP()
@@ -47,6 +51,10 @@ def is_host_alive_icmp(ip):
     
 
 
+
+
+
+
 def guess_os(ttl):
     if ttl is None:
         return "Unknown"
@@ -57,7 +65,14 @@ def guess_os(ttl):
     else:
         return "Ye kya hai"
 
-def port_scan(ip, ports):
+
+
+
+
+
+
+
+'''def port_scan(ip, ports):
     open_ports = []
     for port in ports:
         try:
@@ -70,6 +85,12 @@ def port_scan(ip, ports):
         except Exception:
             pass
     return open_ports
+'''
+
+
+
+
+
 
 def worker():
     while not ip_queue.empty():
@@ -144,15 +165,12 @@ def resolve_targets(target):
             print(f"Could not resolve domain '{target}': {e}")
             return []
 
-# Replace this:
-# net = ipaddress.ip_network(network, strict=False)
-# for ip in net.hosts():
-#     ip_queue.put(ip)
 
-# With this:
 targets = resolve_targets(network)
 for ip in targets:
     ip_queue.put(ip)
+
+
 
 # Start threads
 threads = []
@@ -164,6 +182,16 @@ for _ in range(threads_count):
 ip_queue.join()
 for t in threads:
     t.join()
+
+
+
+
+
+
+
+
+
+
 
 # Show all alive hosts at the end
 print("\nScan complete. Alive hosts:")
