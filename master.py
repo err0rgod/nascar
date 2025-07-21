@@ -7,26 +7,30 @@ parser =  argparse.ArgumentParser(description="Gaand Phaad Network Scanner")
 
 parser.add_argument("-i","--network", type=str, required=True, help="Enter the target Domain or IP")
 parser.add_argument("-p","--port",type=str, default="1-1024",help="Enter the start and end of ports to scan")
-
+parser.add_argument("-t","--threads",default=10,type=int,help="Enter the Number of threds")
 
 args = parser.parse_args()
 
 
 target= args.network
 port = args.port
-
+threads = args.threads
 open_ports = []
 
 
 
 
 #for ports decode
-def ip_ressolve(target):
+def parse_ports(port):
     try:
-        start_port, end_port = map(int, args.port.split('-'))
-        ports = range(start_port, end_port)
-        return ports
-    
+        if  '-'  in port:
+             start_port, end_port = map(int, args.port.split('-'))
+             ports = range(start_port, end_port)
+             return ports
+        
+        else:
+            return[int(port)]
+
     except ValueError:
         print("Error : Invalid Port format. Use start - end (eg. -> 1-100)")
         exit(1)
@@ -77,6 +81,6 @@ def result(ip,ports_range):
         print(f"the port : {i} is Open")
 
 
-ports_range = ip_ressolve(target)
+ports_range = parse_ports(port)
 ip=resolve_target(target)
 result(ip,ports_range)
