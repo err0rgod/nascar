@@ -7,7 +7,7 @@ import sys
 
 
 
-open_ports = []
+
 
 #for ports decode
 def parse_ports(port):
@@ -58,7 +58,7 @@ def port_scan(ip,ports=(1,1024)):
 
             s.close()
 
-    except Exception as e:
+    except Exception as e:  
         print(f"some error occured on {ip} with this : {e}")
 
 
@@ -83,14 +83,14 @@ def result(ip,ports_range):
 
     
     port_scan(ip,ports_range)
-    print(ports_range)
-    print(open_ports)
+    #print(ports_range)
+    #print(open_ports)
 
     for i in open_ports:
         print(f"the port : {i} is Open")
 
 
-
+open_ports = []
 
 def main():
 
@@ -118,20 +118,23 @@ def main():
 
 
 
+
+
+
     
     print(f" \n Scanning {ip} started")
 
 
-    with ThreadPoolExecutor(max_workers=threads) as executer:
+    '''with ThreadPoolExecutor(max_workers=threads) as executer:
         results = executer.map(lambda p: port_scan(ip,[p]),ports_range)
         open_ports = [port for port in results if port]
+'''
 
-
-    print(f"Open Ports are  : {open_ports}")
+    #print(f"Open Ports are  : {open_ports}")
 
    
     #ip=resolve_target(target)
-    #result(ip,ports_range)
+    result(ip,ports_range)
 
 
 
