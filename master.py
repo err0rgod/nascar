@@ -131,7 +131,7 @@ def main():
 
    
     #ip=resolve_target(target)
-    result(ip,ports_range)
+    #result(ip,ports_range)
 
 
 
