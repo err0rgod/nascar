@@ -41,11 +41,17 @@ def parse_ports(port):
 # ressolve initial domain
 
 def resolve_target(target):
+        
+    try:
 
-    ip = socket.gethostbyname(target)
+        ip = socket.gethostbyname(target)
+
+        print(ip)
+        return ip
     
-    print(ip)
-    return ip
+    except socket.gaierror :
+        print(f"Could not ressolve the target {target} : Might be Invalid ")
+        exit(1)
 
 
 #port scan without proxy
