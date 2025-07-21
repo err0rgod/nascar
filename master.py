@@ -1,5 +1,7 @@
 import socket 
 import argparse
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
 
 
 parser =  argparse.ArgumentParser(description="Gaand Phaad Network Scanner")
@@ -39,7 +41,6 @@ def parse_ports(port):
 
 
 # ressolve initial domain
-
 def resolve_target(target):
         
     try:
@@ -52,6 +53,8 @@ def resolve_target(target):
     except socket.gaierror :
         print(f"Could not ressolve the target {target} : Might be Invalid ")
         exit(1)
+
+
 
 
 #port scan without proxy
@@ -71,7 +74,20 @@ def port_scan(ip,ports=(1,1024)):
     except Exception as e:
         print(f"some error occured on {ip} with this : {e}")
 
+
+
         
+#Host  is alive or not by ICMP ping
+def is_alive(ip):
+    try:
+        param = '-n' if os.name == 'nt' else '-c'
+        command = ['ping', param, '1', ip]
+        return subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
+    except:
+        return False   
+
+
+
 
 
 
