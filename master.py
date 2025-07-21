@@ -124,7 +124,7 @@ def main():
 
     with ThreadPoolExecutor(max_workers=threads) as executer:
         results = executer.map(lambda p: port_scan(ip,[p]),ports_range)
-        '''open_ports = [port for port in results if port]'''
+        open_ports = [port for port in results if port]
 
 
     print(f"Open Ports are  : {open_ports}")

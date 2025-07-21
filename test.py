@@ -9,3 +9,10 @@ def port_scan(ip, port):
     except Exception as e:
         print(f"Error on {ip}:{port} → {e}")
     return None  # Return None if closed/error
+
+
+
+
+
+
+#open ports wala sahi se work  nhi  kr raha hai and then code clean kro and tcp alive checking kro
