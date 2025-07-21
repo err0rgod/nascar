@@ -45,30 +45,38 @@ def resolve_target(target):
 
 
 #port scan without proxy
-def port_scan(ip,ports):
-    for port in ports:
-        s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        s.settimeout(1)
-        result = s.connect_ex((ip,port))
-        if result== 0:
-            print(f"The Port {port} is Open")
-            open_ports.append(port)
+def port_scan(ip,ports=(1,1024)):
+        
+    try:
+        for port in ports:
+            s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+            s.settimeout(1)
+            result = s.connect_ex((ip,port))
+            if result== 0:
+                print(f"The Port {port} is Open")
+                open_ports.append(port)
 
-        else:
-            print("port  Not open")
+            s.close()
 
-        s.close()
+    except Exception as e:
+        print(f"some error occured on {ip} with this : {e}")
 
         
 
 
 
+#end result configuration and stuff
+def result(ip,ports_range):
 
+    
+    port_scan(ip,ports_range)
+    print(ports_range)
+    print(open_ports)
 
+    for i in open_ports:
+        print(f"the port : {i} is Open")
 
 
 ports_range = ip_ressolve(target)
 ip=resolve_target(target)
-port_scan(ip,ports_range)
-print(ports_range)
-print(open_ports)
+result(ip,ports_range)
