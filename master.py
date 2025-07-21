@@ -11,25 +11,33 @@ parser.add_argument("-p","--port",type=str, default="1-1024",help="Enter the sta
 
 args = parser.parse_args()
 
-target= args.network
 
+target= args.network
+port = args.port
 
 open_ports = []
 
 
+ports = None
+
 #for ports decode
-def port_ressolve(port):
-    try:
-        start_port, end_port = map(int, args.portse.split('-'))
-        ports = range(start_port, end_port + 1)
 
-    except ValueError:
-        print("Error : Invaluid Port format. Use start - end (eg. -> 1-100)")
-        exit(1)
+try:
+    start_port, end_port = map(int, args.port.split('-'))
+    ports = range(start_port, end_port)
+
+except ValueError:
+    print("Error : Invalid Port format. Use start - end (eg. -> 1-100)")
+    exit(1)
+
+
+print(ports)
 
 
 
-def resolve_target(target)
+
+
+def resolve_target(target):
 
     ip = socket.gethostbyname(target)
     
