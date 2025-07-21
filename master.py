@@ -80,14 +80,14 @@ def port_scan(ip,ports=(1,1024)):
 
 #for multi threading
 def mthread(ip,ports_range,threads=10):
-    thread =[]
+    thread_num =[]
     for port in ports_range:
         while threading.active_count() > threads:
             pass
 
-        thread = threading.Thread(target = result , args=(ip,ports_range))
+        thread = threading.Thread(target = result , args=(ip,port))
         thread.start()
-        thread.append(thread)
+        thread_num.append(thread)
 
 
 
@@ -152,7 +152,7 @@ def main():
    
     #ip=resolve_target(target)
     mthread(ip,ports_range,threads)
-    result(ip,ports_range)
+    #result(ip,ports_range)
 
 
 
