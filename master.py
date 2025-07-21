@@ -49,9 +49,11 @@ def port_scan(ip,ports):
     for port in ports:
         s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.settimeout(1)
-        if s.connect_ex((ip,port))== 0:
+        result = s.connect_ex((ip,port))
+        if result== 0:
             print(f"The Port {port} is Open")
-            
+            open_ports.append(port)
+
         else:
             print("port  Not open")
 
@@ -65,7 +67,8 @@ def port_scan(ip,ports):
 
 
 
-portse = ip_ressolve(target)
+ports_range = ip_ressolve(target)
 ip=resolve_target(target)
-port_scan(ip,portse)
-print(portse)
+port_scan(ip,ports_range)
+print(ports_range)
+print(open_ports)
