@@ -1,7 +1,7 @@
 import socket 
 import argparse
 import subprocess
-from concurrent.futures import ThreadPoolExecutor
+import threading
 import sys
 
 
@@ -78,6 +78,23 @@ def port_scan(ip,ports=(1,1024)):
 
 
 
+#for multi threading
+def mthread(ip,ports_range,threads=10):
+    thread =[]
+    for port in ports_range:
+        while threading.active_count() > threads:
+            pass
+
+        thread = threading.Thread(target = result , args=(ip,ports_range))
+        thread.start()
+        thread.append(thread)
+
+
+
+
+
+
+
 #end result configuration and stuff
 def result(ip,ports_range):
 
@@ -134,6 +151,7 @@ def main():
 
    
     #ip=resolve_target(target)
+    mthread(ip,ports_range,threads)
     result(ip,ports_range)
 
 
