@@ -2,31 +2,18 @@ import socket
 import argparse
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
+import sys
 
 
-parser =  argparse.ArgumentParser(description="Gaand Phaad Network Scanner")
 
 
-parser.add_argument("-i","--network", type=str, required=True, help="Enter the target Domain or IP")
-parser.add_argument("-p","--port",type=str, default="1-1024",help="Enter the start and end of ports to scan")
-parser.add_argument("-t","--threads",default=10,type=int,help="Enter the Number of threds")
-
-args = parser.parse_args()
-
-
-target= args.network
-port = args.port
-threads = args.threads
 open_ports = []
-
-
-
 
 #for ports decode
 def parse_ports(port):
     try:
         if  '-'  in port:
-             start_port, end_port = map(int, args.port.split('-'))
+             start_port, end_port = map(int,port.split('-'))
              ports = range(start_port, end_port)
              return ports
         
@@ -78,7 +65,7 @@ def port_scan(ip,ports=(1,1024)):
 
         
 #Host  is alive or not by ICMP ping
-def is_alive(ip):
+'''def is_alive(ip):
     try:
         param = '-n' if os.name == 'nt' else '-c'
         command = ['ping', param, '1', ip]
@@ -86,8 +73,8 @@ def is_alive(ip):
     except:
         return False   
 
-
-
+'''
+#leaved at implementing is host alive function yet to be done 
 
 
 
@@ -103,6 +90,51 @@ def result(ip,ports_range):
         print(f"the port : {i} is Open")
 
 
-ports_range = parse_ports(port)
-ip=resolve_target(target)
-result(ip,ports_range)
+
+
+def main():
+
+    parser =  argparse.ArgumentParser(description="Gaand Phaad Network Scanner")
+
+
+    parser.add_argument("-i","--network", type=str, required=True, help="Enter the target Domain or IP")
+    parser.add_argument("-p","--port",type=str, default="1-1024",help="Enter the start and end of ports to scan")
+    parser.add_argument("-t","--threads",default=10,type=int,help="Enter the Number of threds")
+
+    args = parser.parse_args()
+
+    
+    target= args.network
+    port = args.port
+    threads = args.threads
+
+
+    ports_range = parse_ports(port)
+    ip=resolve_target(target)
+
+
+
+
+
+
+
+    
+    print(f" \n Scanning {ip} started")
+
+
+    with ThreadPoolExecutor(max_workers=threads) as executer:
+        results = executer.map(lambda p: port_scan(ip,[p]),ports_range)
+        '''open_ports = [port for port in results if port]'''
+
+
+    print(f"Open Ports are  : {open_ports}")
+
+   
+    #ip=resolve_target(target)
+    result(ip,ports_range)
+
+
+
+
+if __name__ == "__main__":
+    main()
