@@ -1,0 +1,6 @@
+argparse
+socket
+ipadress
+scapy
+threading 
+re
